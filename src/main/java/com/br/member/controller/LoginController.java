@@ -53,6 +53,7 @@ public class LoginController extends HttpServlet {
 		 * 모든 jsp, 서블릿에서 꺼내 쓸 수 있음.
 		 * 3.request : 
 		 * 현재 이 request 객체를 포워딩한 응답 jsp에서만 꺼내 쓸 수 있음(일회성)
+		 * 다른페이지로 넘어가는 순간 소멸
 		 * 매개변수로 선언되어있어서 바로 setAttribute 메소드로 사용가능
 		 * 4.page : 
 		 * 해당 jsp에서 담고 해당 jsp에서만 꺼내 쓸 수 있음.
