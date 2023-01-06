@@ -19,6 +19,20 @@ public class Member {
 	// 기본생성자, 매개변수생성자, setter/getter, toString
 	
 	public Member() {}
+	
+	
+
+	public Member(String userId, String userName, String phone, String email, String address, String interest) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.interest = interest;
+	}
+
+
 
 	public Member(String userId, String userPwd, String userName, String phone, String email, String address,
 			String interest) {
