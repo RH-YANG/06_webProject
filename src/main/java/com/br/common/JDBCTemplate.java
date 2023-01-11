@@ -11,6 +11,10 @@ import java.util.Properties;
 
 public class JDBCTemplate {
 	
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 	public static Connection getConnection() {
 		
 		Connection conn = null;
@@ -38,6 +42,10 @@ public class JDBCTemplate {
 			conn.setAutoCommit(false);
 			// mac을 쓰는 사람도 있어서 필요한 구문
 			
+<<<<<<< Updated upstream
+=======
+			
+>>>>>>> Stashed changes
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
