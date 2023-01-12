@@ -23,6 +23,10 @@
         border: 1px solid white;
         text-align: center;
     }
+    .list-area>tbody>tr:hover {
+    	background-color:gray;
+    	cursor:pointer;
+    }
 </style>
 </head>
 <body>
@@ -32,7 +36,7 @@
         <br>
         <% if(loginUser != null) { %>
         <div align="right" style="width:700px">
-        	<a href="" class="btn btn-secondary btn-sm">글작성</a>
+        	<a href="<%=contextPath%>/enrollForm.bo" class="btn btn-secondary btn-sm">글작성</a>
         	<br><br>
         </div>
         <% } %>
@@ -68,6 +72,14 @@
 	        <%} %>
             </tbody>
         </table>
+        <script>
+        	$(function(){
+        		$(".list-area>tbody>tr").click(function(){
+        			location.href = '<%=contextPath%>/detail.bo?no=' + $(this).children().eq(0).text();
+        		})
+        	})
+        
+        </script>
         <br><br>
         <div class="paging-area">
 			<% if(pi.getCurrentPage()>1){ %>

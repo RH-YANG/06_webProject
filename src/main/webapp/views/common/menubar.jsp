@@ -5,7 +5,6 @@
 	String contextPath = request.getContextPath();
 	// "/web" 기록됨
 	
-
 	//session은 jsp 내장객체여서 아래와 같이 선언 없이 바로 쓸 수 있음. 
 	//반면 서블릿은 세션객체를 얻어온 다음에 써야함(request.get~ 메소드 사용)
 	Member loginUser = (Member)session.getAttribute("loginUser");
