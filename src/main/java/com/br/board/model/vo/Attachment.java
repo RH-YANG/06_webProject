@@ -14,6 +14,18 @@ public class Attachment {
 	private String status;
 	
 	public Attachment() {}
+	
+	
+
+	public Attachment(int fileNo, String originName, String changeName, String filePath) {
+		super();
+		this.fileNo = fileNo;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+	}
+
+
 
 	public Attachment(int fileNo, int refBoardNo, String originName, String changeName, String filePath,
 			Date uploadDate, int fileLevel, String status) {

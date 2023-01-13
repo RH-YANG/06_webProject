@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.br.board.model.vo.*" %>
+<%
+	Board b = (Board)request.getAttribute("b");
+	Attachment at = (Attachment)request.getAttribute("at");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +18,11 @@
         margin:auto;
         margin-top: 50px;
     }
+    .detail-area {
+    	border : 1px solid white;
+    	text-align : center;
+    }
+    
 </style>
 </head>
 <body>
@@ -23,41 +33,43 @@
     <table border="1" id="detail-area">
         <tr>
             <th width="70">카테고리</th>
-            <td width="70">~운동~</td>
+            <td width="70"><%=b.getCategory()%></td>
             <th width="70">제목</th>
-            <td wudth="350">~제목자리~</td>
+            <td width="350"><%=b.getBoardTitle()%></td>
         </tr>
         <tr>
             <th>작성자</th>
-            <td>~아이디~</td>
+            <td><%= b.getBoardWriter()%></td>
             <th>작성일</th>
-            <td>~yyyy/mm/dd~</td>
+            <td><%= b.getCreateDate()%></td>
         </tr>        
         <tr>
             <th>내용</th>
             <td colspan="3" height="200">
-                ~내용자리~
+                <%=b.getBoardContent()%>
             </td>
         </tr>
         <tr>
             <th>첨부파일</th>
             <td colspan="3">
-
+				<% if( at == null ){ %>
                 <!-- case1. 첨부파일이 없을경우-->
                 첨부파일이 없습니다
-
+     			<% } else { %>
                 <!-- case2. 첨부파일이 있을 경우-->
-                <a href="첨부파일의 저장경로, 첨부파일의 실제 저장된 파일명">~원본명~</a>
-
+                <a download="다운받아질 이름.jpg" href="<%=contextPath%>/<%=at.getFilePath() + at.getChangeName()%>"><%= at.getOriginName() %></a>
+				<% } %>
             </td>
         </tr>        
     </table>
     <br>
     <div>
-        <a href="" class="btn btn-secondary btn-sm">목록가기</a>
+        <a href="<%=contextPath%>/list.bo?cpage=1" class="btn btn-secondary btn-sm">목록가기</a>
+        <% if( loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())) { %>
         <!-- 로그인한 회원이 게시글을 쓴 회원일경우 -->
-        <a href="" class="btn btn-warning btn-sm">수정하기</a>
+        <a href="<%=contextPath%>/updateForm.bo?no=<%=b.getBoardNo()%>" class="btn btn-warning btn-sm">수정하기</a>
         <a href="" class="btn btn-danger btn-sm">삭제하기</a>
+        <% } %>
     </div>
     <br><br>
     </div>

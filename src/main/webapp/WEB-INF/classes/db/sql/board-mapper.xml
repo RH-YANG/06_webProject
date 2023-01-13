@@ -77,16 +77,14 @@
 		   , ?
 		   )
 	</entry>
-	<entry key="">
-	--1) 조회수 증가시키기
+	<entry key="increseCount">
 		UPDATE
 		       BOARD
 		   SET COUNT = COUNT +1
 		 WHERE BOARD_NO = ?
 		   AND STATUS = 'Y'
 	</entry>
-	<entry key="">
-	--2) BOARD로부터 게시글 정보 조회
+	<entry key="selectBoard">
 		SELECT
 		       BOARD_NO
 		     , CATEGORY_NAME
@@ -99,14 +97,50 @@
 		  JOIN MEMBER ON (BOARD_WRITER=USER_NO)
 		 WHERE BOARD_NO = ?
 	</entry>
-	<entry key="">
-	--3) ATTACHMENT로부터 첨부파일 정보 조회
+	<entry key="selectAttachment">
 		SELECT
 		       FILE_NO
 		     , ORIGIN_NAME
 		     , CHANGE_NAME
 		     , FILE_PATH
-		  FORM ATTACHMENT
+	      FROM ATTACHMENT
 		 WHERE REF_BNO = ?  
+	</entry>
+	
+	
+	<entry key="updateBoard">
+		UPDATE 
+		       BOARD
+		   SET CATEGORY_NO = ?
+		     , BOARD_TITLE = ?
+		     , BOARD_CONTENT = ?
+		 WHERE BOARD_NO = ?
+	</entry>
+	<entry key="insertNewAttachment">
+		INSERT
+		  INTO ATTACHMENT
+		  (
+		    FILE_NO
+		  , REF_BNO
+		  , ORIGIN_NAME
+		  , CHANGE_NAME
+		  , FILE_PATH
+		  )
+		  VALUES
+		  (
+		    SEQ_FNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
+	<entry key="updateAttachment">
+		UPDATE
+		       ATTACHMENT
+		   SET ORIGIN_NAME = ?
+		     , CHANGE_NAME = ?
+		     , FILE_PATH = ?
+		 WHERE FILE_NO = ?
 	</entry>
 </properties>

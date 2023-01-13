@@ -52,5 +52,58 @@ public class BoardService {
 		close(conn);
 		return result1*result2;
 	}
+	
+	
+	public int increseCount(int boardNo) {
+		Connection conn = getConnection();
+		int result = new BoardDao().increseCount(conn, boardNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public Board selectBoard(int boardNo) {
+		Connection conn = getConnection();
+		Board b = new BoardDao().selectBoard(conn, boardNo);
+		close(conn);
+		return b;		
+	}
+	
+	public Attachment selectAttachment(int boardNo) {
+		Connection conn = getConnection();
+		Attachment at = new BoardDao().selectAttachment(conn, boardNo);
+		close(conn);
+		return at;
+	}
+	
+	public int updateBoard(Board b,Attachment at) {
+		Connection conn = getConnection();
+		int result1 = new BoardDao().updateBoard(conn, b);
+		
+		int result2 = 1; //1로 초기화
+		if(at != null) {
+			if(at.getFileNo() != 0) { 
+				// fileNo 타입은 숫자이므로 기본값 0으로 비교
+				//old첨부 O => UPDATE ATTACHMENT
+				result2 = new BoardDao().updateAttachment(conn, at);
+				
+			}else { 
+				//old첨부 X  ==> INSERT ATTACHMENT
+				//기존의 insertAttachment 메소드 쓸 수 없음. sql문이 살짝 다름
+				result2 = new BoardDao().insertNewAttachment(conn, at);
+			}
+		}
+		if(result1>0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1*result2;
+	}
 
 }
