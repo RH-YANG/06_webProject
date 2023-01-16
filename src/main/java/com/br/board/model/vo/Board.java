@@ -13,6 +13,22 @@ public class Board {
 	private String createDate; // 날짜는 Date타입이 아닌 문자열로도 가능하다
 	private String status;
 	
+	private String titleImg; // 대표이미지의경로
+	
+	
+	
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+
+
+
 	public Board() {}
 
 	

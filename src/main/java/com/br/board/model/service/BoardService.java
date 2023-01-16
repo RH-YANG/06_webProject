@@ -1,6 +1,9 @@
 package com.br.board.model.service;
 
-import static com.br.common.JDBCTemplate.*;
+import static com.br.common.JDBCTemplate.close;
+import static com.br.common.JDBCTemplate.commit;
+import static com.br.common.JDBCTemplate.getConnection;
+import static com.br.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -104,6 +107,29 @@ public class BoardService {
 		}
 		close(conn);
 		return result1*result2;
+	}
+	
+	public int insertThumbnailBoard(Board b, ArrayList<Attachment> list) {
+		Connection conn = getConnection();
+		//Board 테이블 insert
+		int result1 = new BoardDao().insertThBoard(conn,b);
+		
+		//Attachment테이블
+		int result2 = new BoardDao().insertAttachmentList(conn, list); 
+		
+		if(result1*result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result1*result2;
+	}
+	
+	public ArrayList<Board> selectThumbnailList(){
+		Connection conn = getConnection();
+		ArrayList<Board> list = new BoardDao().selectThumbnailList(conn);
+		close(conn);
+		return list;
 	}
 
 }
