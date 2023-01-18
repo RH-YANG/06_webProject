@@ -132,4 +132,12 @@ public class BoardService {
 		return list;
 	}
 
+	
+	public ArrayList<Attachment> selectAttachmentList(int boardNo){
+		Connection conn = getConnection();
+		ArrayList list = new BoardDao().selectAttachmentList(conn, boardNo);
+		close(conn);
+		return list;
+	}
+
 }
