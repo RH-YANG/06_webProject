@@ -78,24 +78,19 @@ public class BoardUpdateController extends HttpServlet {
 					at.setRefBoardNo(boardNo);
 				}
 			}
-			
 			int result = new BoardService().updateBoard(b,at);
 			//at는 세가지 경우가 있음. 
 			// 1) new첨부 X == null 
 			// 2) new첨부 O, old첨부 O  == fileNo에 기존파일정보있음
 			// 3) new첨부 O, old첨부 X  == refBoardNo에 정보 있음
-			
 			if(result>0) {
 				//성공
 				request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
 				response.sendRedirect(request.getContextPath()+"/detail.bo?no="+boardNo);
 			}else {
-				//실패
-				
-				
+				//실패 => 에러페이지
 			}
 		}
-	
 	}
 
 	/**

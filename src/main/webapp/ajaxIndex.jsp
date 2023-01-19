@@ -83,6 +83,142 @@
 		}
 	</script>
 	
+	<h3>post 방식으로 서버에 여러개의 데이터 전송 및 응답해보기</h3>
+	이름 : <input type="text" id="input2_1"> <br>
+	나이 : <input type="number" id="input2_2"> <br>
+	<button id="btn2">전송</button> <br>
+	<!-- 응답을 뿌릴 영역을 선택하기 위한 태그 필요 : label활용 -->
+	
+	<!-- case1)
+	<script>
+		$(function(){
+			$('#btn2').click(function(){
+				$.ajax({
+					url:"/web/test2.do",
+					data:{
+						name:$('#input2_1').val(),
+						age:$('#input2_2').val()						
+					},
+					type:"post",
+					success:function(a){
+						/*서블릿에서 보낸 데이터를 매개변수로 받을수 있다*/
+						$('#output2').html(a);
+						/*전송후 입력창은 초기화하기*/
+						$('#input2_1').val("");
+						$('#input2_2').val("");
+					},
+					error:function(){
+						console.log("ajax통신실패");	
+					}
+				})
+			})
+		})
+	</script> -->
+	
+	<!-- case2)응답 데이터가 여러개일때 -->
+	응답
+	<ul id="output2"></ul>
+	
+	<script>
+		$(function(){
+			$("#btn2").click(function(){
+				$.ajax({
+					url:"/web/test2.do",
+					data:{
+						name:$("#input2_1").val(),
+						age:$("#input2_2").val()
+					},
+					type:"post",
+					success:function(a){
+						console.log(a);
+						console.log(a.name);
+						console.log(a.age);
+						
+						const value = "<li>"+a.name+"</li>"
+						   			 +"<li>"+a.age+"</li>";
+					    $('#output2').html(value);
+					},
+					error:function(){
+						console.log('ajax통신실패')
+					}
+				})
+			})
+		})
+	</script>	
+	
+	<h3>3. 서버에 데이터 전송후, 조회된 vo객체를 응답데이터로 </h3>
+	
+	검색하고자하는 회원 아이디 : <input type="text" id="input3">
+	<button onclick="test3();">검색</button>
+	<div id="output3">검색결과영역</div>
+	<script>
+		function test3(){
+			$.ajax({
+				url:"/web/test3.do",
+				data:{id:$("#input3").val()},
+				success:function(result){
+					console.log(result);
+					if(result == null){
+						$('#output3').html("검색결과가 없습니다.");
+					}else{
+						const value = "회원번호: "+result.userNo+"<br>"
+						            + "회원아이디: "+result.userId+"<br>"
+						            + "이름: "+result.userName+"<br>";
+						$('#output3').html(value);
+					}
+				},
+				error:function(){
+					console.log('ajax통신실패')
+				}
+			})			
+		}
+	</script>
+	
+	<h3>4. 응답데이터로 조회된 여러 vo객체들이 담겨있는 ArrayList받기</h3>
+	<button onclick="test4();">공지사항 전체조회</button>
+	<table id="output4" border="1">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	
+	<script>
+		function test4(){
+			$.ajax({
+				url:"/web/test4.do",
+				success:function(result){
+					console.log(result); // 배열 안에 객체 담겨있음 확인
+					let value = "";
+					for(let i=0; i<result.length; i++) {
+						value += "<tr>"
+						            +"<td>"+result[i].noticeNo+"</td>"
+						            +"<td>"+result[i].noticeTitle+"</td>"
+						            +"<td>"+result[i].noticeWriter+"</td>"
+						            +"<td>"+result[i].count+"</td>"
+						        +"</tr>"    
+					}
+					$('#output4 tbody').html(value);
+				},
+				error:function(){
+					console.log('ajax 통신실패')
+				}
+			})
+		}
+	</script>
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
