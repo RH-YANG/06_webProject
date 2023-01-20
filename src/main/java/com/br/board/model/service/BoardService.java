@@ -12,6 +12,7 @@ import com.br.board.model.dao.BoardDao;
 import com.br.board.model.vo.Attachment;
 import com.br.board.model.vo.Board;
 import com.br.board.model.vo.Category;
+import com.br.board.model.vo.Reply;
 import com.br.common.model.vo.PageInfo;
 
 public class BoardService {
@@ -135,9 +136,28 @@ public class BoardService {
 	
 	public ArrayList<Attachment> selectAttachmentList(int boardNo){
 		Connection conn = getConnection();
-		ArrayList list = new BoardDao().selectAttachmentList(conn, boardNo);
+		ArrayList<Attachment> list = new BoardDao().selectAttachmentList(conn, boardNo);
 		close(conn);
 		return list;
+	}
+	
+	public ArrayList<Reply> selectReplyList(int boardNo) {
+		Connection conn = getConnection();
+		ArrayList<Reply> list = new BoardDao().selectReplyList(conn, boardNo);
+		close(conn);
+		return list;
+	}
+	
+	public int insertReply(Reply r) {
+		Connection conn = getConnection();
+		int result = new BoardDao().insertReply(conn, r);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 }
