@@ -19,45 +19,40 @@
 </style>
 </head>
 <body>
-	<%@include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
 	<%
-		String userId = loginUser.getUserId();
-		String userName = loginUser.getUserName();
-		String phone = loginUser.getPhone()==null? "":loginUser.getPhone();
-		String email = loginUser.getEmail()==null? "":loginUser.getEmail();
-		String address = loginUser.getAddress()==null? "":loginUser.getAddress();
-		String interest = loginUser.getInterest()==null? "":loginUser.getInterest();		
+	
 	%>
 
 	<div class="outer">
 		<br>
 		<h2 align="center">마이페이지</h2>
-		<form action="<%=contextPath%>/update.me" method="post" id="mypage-form">
+		<form action="update.me" method="post" id="mypage-form">
 			<table>
 				<tr>
 					<td>* 아이디 </td>
-					<td><input type="text" name="userId" value="<%=userId%>" readonly></td>
+					<td><input type="text" name="userId" value="${ loginUser.userId }" readonly></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>* 이름</td>
 					<!-- DB에서 이름이 15바이트이므로 최대길이 5-->
-					<td><input type="text" name="userName" value="<%=userName%>"></td>
+					<td><input type="text" name="userName" value="${ loginUser.userName }"></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>&nbsp;&nbsp;전화번호</td>
-					<td><input type="text" name="phone" value="<%=phone%>"></td>
+					<td><input type="text" name="phone" value='${ loginUser.phone }'></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>&nbsp;&nbsp;이메일</td>
-					<td><input type="email" name="email" value="<%=email%>"></td>
+					<td><input type="email" name="email" value='${ loginUser.email }'></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>&nbsp;&nbsp;주소</td>
-					<td><input type="text" name="address" value="<%=address%>"></td>
+					<td><input type="text" name="address" value='${ loginUser.address }'></td>
 					<td></td>
 				</tr>
 				<tr>
@@ -81,7 +76,7 @@
 			
 			<script>
 				$(function(){
-					const interest = "<%=interest%>";
+					const interest = "${ (empty loginUser.interest)? '': loginUser.interest }";
 					//현재 로그인한 회원의 관심분야들 자바스크립트 변수에 옮겨담기
 					// "sports,climbing,game" 혹은 "" 로 담겨있을 것
 					
@@ -122,8 +117,8 @@
 	      <!-- Modal body -->
 	      <div class="modal-body" align="center">
 	      <b>탈퇴 후 복구가 불가능합니다. <br> 정말로 탈퇴하시겠습니까? <br><br></b>
-	        <form action="<%=contextPath%>/delete.me" method="post">
-	        	<input type="hidden" name="userId" value="<%=userId%>"> 
+	        <form action="delete.me" method="post">
+	        	<input type="hidden" name="userId" value="${ loginUser.userId }"> 
 	        	비밀번호 : <input type="password" name="userPwd" required><br><br>
 	        	<button type="submit" class="btn btn-danger btn-sm">탈퇴하기</button>
 	        </form>
@@ -146,8 +141,8 @@
 	
 	      <!-- Modal body -->
 	      <div class="modal-body" align="center">
-	        <form action="<%=contextPath%>/updatePwd.me" method="post">
-	        	<input type="hidden" name="userId" value="<%=userId%>"> 
+	        <form action="updatePwd.me" method="post">
+	        	<input type="hidden" name="userId" value="${ loginUser.userId }"> 
 	        	<table>
 	        		<tr>
 	        			<td>현재 비밀번호</td>

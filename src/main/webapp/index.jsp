@@ -32,7 +32,7 @@
 		  게시판 작성 - 다중 첨부파일 업로드 / 첨부파일 미리보기
 	 -->
 	 
-	 <%@ include file="views/common/menubar.jsp" %>
+	 <jsp:include page="views/common/menubar.jsp"/>
 	 
 	 
 </body>

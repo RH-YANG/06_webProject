@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.br.notice.model.vo.Notice" %>
-<%
-	Notice n = (Notice)request.getAttribute("n");
-	//글번호, 제목, 내용, 작성자아아디, 작성일 담겨있다.
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,25 +23,25 @@
 </head>
 <body>
 
-	<%@ include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
 	
     <div class="outer" align="center">
         <br>
         <h2>공지사항 수정하기</h2>
         <br>
-        <form action="<%=contextPath%>/update.no" method="post" id="update-form">
-        	<input type="hidden" name="no" value="<%=n.getNoticeNo()%>">
+        <form action="update.no" method="post" id="update-form">
+        	<input type="hidden" name="no" value="${ n.noticeNo }">
             <table>
                 <tr>
                     <th width="50">제목</th>
-                    <td width="450"><input type="text" name="title" required value="<%=n.getNoticeTitle()%>"></td>
+                    <td width="450"><input type="text" name="title" required value="${ n.noticeTitle }"></td>
                 </tr>
                 <tr>
                     <th>내용</th>                   
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <textarea name="content" style="resize:none" id="" rows="10" required ><%=n.getNoticeContent()%></textarea>
+                        <textarea name="content" style="resize:none" id="" rows="10" required >${ n.noticeContent }</textarea>
                     </td>
                 </tr>               
             </table>
